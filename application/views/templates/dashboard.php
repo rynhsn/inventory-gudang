@@ -144,7 +144,22 @@
                 Reports
             </div>
 
-            <li class="nav-item">
+			<!-- Nav Item - Pages Collapse Menu -->
+			<li class="nav-item">
+				<a class="nav-link collapsed pb-0" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseReports">
+					<i class="fas fa-fw fa-folder"></i>
+					<span><b>Reports</b></span>
+				</a>
+				<div id="collapseReports" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+					<div class="bg-light py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Reports:</h6>
+						<a class="collapse-item" href="<?= base_url('barangrusak'); ?>">Inventory Report</a>
+						<a class="collapse-item" href="<?= base_url('baranghilang'); ?>">Item Status Report</a>
+					</div>
+				</div>
+			</li>
+
+			<li class="nav-item">
                 <a class="nav-link" href="<?= base_url('laporan'); ?>">
                     <i class="fas fa-fw fa-print"></i>
                     <span><b>Print Report</b></span>

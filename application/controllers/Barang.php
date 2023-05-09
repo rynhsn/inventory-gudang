@@ -14,7 +14,7 @@ class Barang extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Barang GUDANG";
+        $data['title'] = "Barang Gudang";
         $data['barang'] = $this->admin->getBarang();
         $this->template->load('templates/dashboard', 'barang/data', $data);
     }

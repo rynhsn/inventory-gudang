@@ -216,7 +216,34 @@
 						<?php foreach ($ranking['barang_masuk_bottom'] as $tbm) : ?>
 							<tr>
 								<td><?= $tbm['nama_barang']; ?></td>
-								<td><span class="badge badge-success"><?= $tbm['total_masuk']; ?></span></td>
+								<td><span class="badge badge-warning"><?= $tbm['total_masuk']; ?></span></td>
+							</tr>
+						<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			</div>
+
+		<!-- Top 5 Barang Rusak -->
+		<div class="col-md-6">
+			<div class="card shadow mb-4">
+				<div class="card-header bg-danger py-3">
+					<h6 class="m-0 font-weight-bold text-white text-center">5 Teratas Barang Rusak Bulan Ini</h6>
+				</div>
+				<div class="table-responsive">
+					<table class="table mb-0 table-sm table-striped text-center">
+						<thead>
+						<tr>
+							<th>Barang</th>
+							<th>Total</th>
+						</tr>
+						</thead>
+						<tbody>
+						<?php foreach ($ranking['barang_rusak_top'] as $tbm) : ?>
+							<tr>
+								<td><?= $tbm['nama_barang']; ?></td>
+								<td><span class="badge badge-danger"><?= $tbm['total_rusak']; ?></span></td>
 							</tr>
 						<?php endforeach; ?>
 						</tbody>
@@ -270,7 +297,34 @@
 						<?php foreach ($ranking['barang_keluar_bottom'] as $tbm) : ?>
 							<tr>
 								<td><?= $tbm['nama_barang']; ?></td>
-								<td><span class="badge badge-success"><?= $tbm['total_keluar']; ?></span></td>
+								<td><span class="badge badge-warning"><?= $tbm['total_keluar']; ?></span></td>
+							</tr>
+						<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- Top 5 Barang Hilang -->
+		<div class="col-md-6">
+			<div class="card shadow mb-4">
+				<div class="card-header bg-dark py-3">
+					<h6 class="m-0 font-weight-bold text-white text-center">5 Teratas Barang Hilang Bulan Ini</h6>
+				</div>
+				<div class="table-responsive">
+					<table class="table mb-0 table-sm table-striped text-center">
+						<thead>
+						<tr>
+							<th>Barang</th>
+							<th>Total</th>
+						</tr>
+						</thead>
+						<tbody>
+						<?php foreach ($ranking['barang_hilang_top'] as $tbm) : ?>
+							<tr>
+								<td><?= $tbm['nama_barang']; ?></td>
+								<td><span class="badge badge-danger"><?= $tbm['total_hilang']; ?></span></td>
 							</tr>
 						<?php endforeach; ?>
 						</tbody>
@@ -281,7 +335,7 @@
 
     	<div class="col-md-6">
 			<div class="card shadow mb-4">
-				<div class="card-header bg-success py-3">
+				<div class="card-header bg-info py-3">
 					<h6 class="m-0 font-weight-bold text-white text-center">5 Transaksi Terakhir Barang Masuk</h6>
 				</div>
 				<div class="table-responsive">

@@ -34,6 +34,8 @@ class Dashboard extends CI_Controller
 			'barang_masuk_bottom' => $this->admin->rankingBarang('masuk', 5, 'bottom'),
 			'barang_keluar_top' => $this->admin->rankingBarang('keluar', 5, 'top'),
 			'barang_keluar_bottom' => $this->admin->rankingBarang('keluar', 5, 'bottom'),
+			'barang_rusak_top' => $this->admin->rankingBarang('rusak', 5, 'top'),
+			'barang_hilang_top' => $this->admin->rankingBarang('hilang', 5, 'top')
 		];
 
         // Line Chart
