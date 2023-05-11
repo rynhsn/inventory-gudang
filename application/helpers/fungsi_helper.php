@@ -48,3 +48,33 @@ function output_json($data)
     $data = json_encode($data);
     $ci->output->set_content_type('application/json')->set_output($data);
 }
+
+function getStatus($status){
+	$data = [
+		0 => ['Belum Diverifikasi', 'badge-warning'],
+		1 => ['Sudah Diverifikasi', 'badge-success'],
+		2 => ['Ditolak', 'badge-danger'],
+		3 => ['Telah Direvisi', 'badge-info']
+	];
+
+	return $data[$status];
+}
+
+function getBulan($bulan = null){
+	$data = [
+		[1, 'Januari'],
+		[2, 'Februari'],
+		[3, 'Maret'],
+		[4, 'April'],
+		[5, 'Mei'],
+		[6, 'Juni'],
+		[7, 'Juli'],
+		[8, 'Agustus'],
+		[9, 'September'],
+		[10, 'Oktober'],
+		[11, 'November'],
+		[12, 'Desember']
+	];
+
+	return $bulan !=null ? $data[$bulan-1][1] : $data;
+}

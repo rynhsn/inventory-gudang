@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Laporaninventory extends CI_Controller
@@ -14,57 +15,43 @@ class Laporaninventory extends CI_Controller
 
 	public function index()
 	{
+//		userdata('role');
 		$data['title'] = "Laporan Inventory";
-		$data['laporan'] = $this->admin->get('report', null, ['category' => 'inventory']);
-		$thn = $this->admin->getYearInventory();
-		$bln = $this->admin->getMonthInventory();
+		$data['laporan'] = $this->admin->report('inventory');
+		$thn = $this->admin->getYearReport('inventory');
+		$bln = $this->admin->getMonthReport('inventory');
 
 		//buat array tahun berdasarkan data dari $thn
-		$data_tahun = array(); // inisialisasi array kosong untuk menampung hasil query
+		$data['tahun'] = array(); // inisialisasi array kosong untuk menampung hasil query
 		foreach ($thn as $row) {
-			array_push($data_tahun, $row['tahun']); // memasukkan tahun ke dalam array
+			array_push($data['tahun'], $row['tahun']); // memasukkan tahun ke dalam array
 		}
 
-		$data['bulan'] = [
-			'01' => 'Januari',
-			'02' => 'Februari',
-			'03' => 'Maret',
-			'04' => 'April',
-			'05' => 'Mei',
-			'06' => 'Juni',
-			'07' => 'Juli',
-			'08' => 'Agustus',
-			'09' => 'September',
-			'10' => 'Oktober',
-			'11' => 'November',
-			'12' => 'Desember'
-		];
-//		foreach ($bln as $bulan) {
-//			$bulan = $bulan['bulan'];
-//			echo $data['bulan'][$bulan] . "<br>";
-//		}
-//		die;
+		$data['bulan'] = getBulan();
 
-		$this->template->load('templates/dashboard', 'laporan/inventory/data', $data);
+		$this->template->load('templates/dashboard', 'laporan/data', $data);
 	}
 
-	public function add(){
-		$bulan = $this->input->post('bulan', true);
+	public function add()
+	{
 		$tahun = $this->input->post('tahun', true);
+		$bulan = $this->input->post('bulan', true);
+		$keterangan = $this->input->post('keterangan', true);
 
 		//validasi
 		$cek = $this->admin->get('report', ['bulan' => $bulan, 'tahun' => $tahun]);
-		if($cek){
+		if ($cek) {
 			set_pesan('laporan sudah ada!');
 			redirect('laporaninventory');
-		}else{
+		} else {
 			//generate kode T-LB-YYMMX
 			$kode = 'T-LB-' . $tahun . $bulan . 0;
 
 			$data = [
 				'id_report' => $kode,
-				'month' => $bulan,
 				'year' => $tahun,
+				'month' => $bulan,
+				'additional_info' => $keterangan,
 				'category' => 'inventory',
 				'is_verified' => 0, //0 = belum diverifikasi, 1 = sudah diverifikasi
 				'verified_at' => null,
@@ -75,5 +62,5 @@ class Laporaninventory extends CI_Controller
 			set_pesan('laporan berhasil disimpan.');
 			redirect('laporaninventory');
 		}
-	0-=
+	}
 }

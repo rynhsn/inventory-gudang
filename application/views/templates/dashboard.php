@@ -136,35 +136,28 @@
                 </div>
             </li>
 
+			<?php if(!is_Admin()):?>
             <!-- Divider -->
             <hr class="sidebar-divider">
-
             <!-- Heading -->
             <div class="sidebar-heading">
                 Reports
             </div>
 
-			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
-				<a class="nav-link collapsed pb-0" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseReports">
-					<i class="fas fa-fw fa-folder"></i>
-					<span><b>Reports</b></span>
+				<a class="nav-link pb-0" href="<?= base_url('laporan'); ?>">
+					<i class="fas fa-fw fa-chart-bar"></i>
+					<span><b>Report</b></span>
 				</a>
-				<div id="collapseReports" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-					<div class="bg-light py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Reports:</h6>
-						<a class="collapse-item" href="<?= base_url('barangrusak'); ?>">Inventory Report</a>
-						<a class="collapse-item" href="<?= base_url('baranghilang'); ?>">Item Status Report</a>
-					</div>
-				</div>
 			</li>
 
 			<li class="nav-item">
-                <a class="nav-link" href="<?= base_url('laporan'); ?>">
+                <a class="nav-link" href="<?= base_url('laporan/print'); ?>">
                     <i class="fas fa-fw fa-print"></i>
                     <span><b>Print Report</b></span>
                 </a>
             </li>
+			<?php endif;?>
 
             <?php if (is_admin()) : ?>
                 <!-- Divider -->

@@ -219,33 +219,10 @@ class Admin_model extends CI_Model
 		return count($this->db->get('barang_hilang')->result_array());
 	}
 
-	public function laporan($table, $mulai, $akhir)
-	{
-		$tgl = $table == 'barang_masuk' ? 'tanggal_masuk' : 'tanggal_keluar';
-		$this->db->where($tgl . ' >=', $mulai);
-		$this->db->where($tgl . ' <=', $akhir);
-		return $this->db->get($table)->result_array();
-	}
 
 	public function cekStok($id)
 	{
 		$this->db->join('satuan s', 'b.satuan_id=s.id_satuan');
 		return $this->db->get_where('barang b', ['id_barang' => $id])->row_array();
-	}
-
-	public function getYearInventory()
-	{
-		$query = "SELECT tahun FROM (SELECT YEAR(tanggal_masuk) AS tahun FROM barang_masuk
-           UNION SELECT YEAR(tanggal_keluar) AS tahun FROM barang_keluar) AS years";
-		return $this->db->query($query)->result_array();
-	}
-
-	public function getMonthInventory()
-	{
-		$query = "SELECT bulan FROM 
-          (SELECT LPAD(MONTH(tanggal_masuk), 2, '0') AS bulan FROM barang_masuk
-           UNION 
-           SELECT LPAD(MONTH(tanggal_keluar), 2, '0') AS bulan FROM barang_keluar) AS bulan_table";
-		return $this->db->query($query)->result_array();
 	}
 }
