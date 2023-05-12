@@ -96,9 +96,9 @@
 								<i class="fas fa-sync-alt"></i>
 							</a>
 
-							<a href="<?= base_url('laporan/print/' . $l['id_report']) ?>"
+							<a href="<?= base_url('laporan/cetak/' . $l['id_report']) ?>"
 							   class="btn btn-primary btn-circle btn-sm <?= $l['is_verified'] == 1 ? '' : 'disabled' ?>"
-							   title="cetak">
+							   title="cetak" target="_blank">
 								<i class="fa fa-print"></i>
 							</a>
 

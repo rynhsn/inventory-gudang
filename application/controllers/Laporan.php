@@ -133,32 +133,6 @@ class Laporan extends CI_Controller
 		$pdf->Output('I', $file_name);
 	}
 
-	public function inventory($action = null, $id = null, $verify = null)
-	{
-		var_dump($this->report->getReport(5, 2023));
-		die;
-		$kategori = 'inventory';
-		if ($action == 'add') {
-			$this->_add($kategori);
-		} elseif ($action == 'update') {
-			$this->_update($kategori, $id, $verify);
-		} else {
-			$this->_view($kategori);
-		}
-	}
-
-	public function status($action = null, $id = null, $verify = null)
-	{
-		$kategori = 'status';
-		if ($action == 'add') {
-			$this->_add($kategori);
-		} elseif ($action == 'update') {
-			$this->_update($kategori, $id, $verify);
-		} else {
-			$this->_view($kategori);
-		}
-	}
-
 	public function index()
 	{
 		$data['title'] = "Laporan";
@@ -262,6 +236,69 @@ class Laporan extends CI_Controller
 		$this->admin->delete('report_detail', 'id_report', $id);
 		set_pesan('laporan berhasil dihapus.');
 		redirect('laporan');
+	}
+
+	public function cetak($id){
+		$header = $this->admin->get('report', ['id_report' => $id]);
+		$creator = $this->admin->get('user', ['id_user' => $header['created_by']])['nama'];
+		$detail = $this->admin->get('report_detail', null, ['id_report' => $id]);
+
+		$this->load->library('CustomPDF');
+
+		$pdf = new FPDF();
+		$pdf->AddPage('L', 'Letter');
+		$pdf->SetFont('Times', 'B', 16);
+		$pdf->Image('./assets/img/logo1.png', 10, 8, 17, 15);
+		$pdf->Image('./assets/img/2.png', 255, 8, 15, 14);
+		$pdf->Cell(260, 7, 'Laporan Barang', 0, 1, 'C');
+		$pdf->SetFont('Times', '', 10);
+		$pdf->Cell(260, 4, 'Periode : ' . getBulan($header['month']) . ' ' . $header['year'], 0, 1, 'C');
+		$pdf->Line(10, 25, 270, 25);
+		$pdf->Ln(10);
+
+		$pdf->SetFont('Arial', 'B', 10);
+
+		$pdf->Cell(10, 7, 'No.', 1, 0, 'C');
+		$pdf->Cell(35, 7, 'Kode Barang', 1, 0, 'C');
+		$pdf->Cell(40, 7, 'Nama Barang', 1, 0, 'C');
+		$pdf->Cell(27, 7, 'Stok Masuk', 1, 0, 'C');
+		$pdf->Cell(27, 7, 'Stok Keluar', 1, 0, 'C');
+		$pdf->Cell(27, 7, 'Stok Rusak', 1, 0, 'C');
+		$pdf->Cell(27, 7, 'Stok Hilang', 1, 0, 'C');
+		$pdf->Cell(27, 7, 'Stok Akhir', 1, 0, 'C');
+		$pdf->Cell(40, 7, 'Penanggung Jawab', 1, 0, 'C');
+		$pdf->Ln();
+
+		$no = 1;
+		foreach ($detail as $d) {
+			$pdf->SetFont('Arial', '', 10);
+			$pdf->Cell(10, 7, $no++ . '.', 1, 0, 'C');
+			$pdf->Cell(35, 7, $d['id_barang'], 1, 0, 'C');
+			$pdf->Cell(40, 7, $d['nama_barang'], 1, 0, 'C');
+			$pdf->Cell(27, 7, $d['stok_masuk'], 1, 0, 'C');
+			$pdf->Cell(27, 7, $d['stok_keluar'], 1, 0, 'C');
+			$pdf->Cell(27, 7, $d['stok_rusak'], 1, 0, 'C');
+			$pdf->Cell(27, 7, $d['stok_hilang'], 1, 0, 'C');
+			$pdf->Cell(27, 7, $d['stok_akhir'], 1, 0, 'C');
+			$pdf->Cell(40, 7, $creator, 1, 0, 'C');
+			$pdf->Ln();
+		}
+		$pdf->Ln(60);
+		$pdf->Cell(75);
+		$pdf->Cell(270, 7, 'Serang, ' . date('d-m-y'), 0, 1, 'C');
+		$pdf->Cell(75);
+		$pdf->Cell(270, 7, 'Executive Housekeeper,', 0, 1, 'C');
+		$pdf->Ln(20);
+		$pdf->Cell(75);
+		$pdf->SetFont('Times', 'B', 15);
+		$pdf->Cell(270, 7, 'KaSetya, S.Tr, M.Kom', 0, 1, 'C');
+		$pdf->SetFont('Times', '', 12);
+		$pdf->Cell(75);
+		$pdf->Cell(270, 7, 'NIP. 19601113 198603 1 003,', 0, 1, 'C');
+
+		ob_end_clean();
+		$file_name = 'Laporan Barang Periode ' . getBulan($header['month']) . ' ' . $header['year'];
+		$pdf->Output('I', $file_name);
 	}
 
 	private function _insertDetail($data, $kode)

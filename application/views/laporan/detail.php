@@ -26,7 +26,7 @@ $this->session->set_flashdata('redirect', 'detail');
 						<i class="fa fa-times"></i>
 					</button>
 				<?php endif; ?>
-				<a href="<?= base_url('laporan/print/' . $laporan['id_report']) ?>"
+				<a href="<?= base_url('laporan/cetak/' . $laporan['id_report']) ?>"
 				   class="btn btn-primary btn-circle btn-sm <?= $laporan['is_verified'] == 1 ? '' : 'disabled' ?>"
 				   title="cetak">
 					<i class="fa fa-print"></i>

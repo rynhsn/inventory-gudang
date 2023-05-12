@@ -219,7 +219,6 @@ class Admin_model extends CI_Model
 		return count($this->db->get('barang_hilang')->result_array());
 	}
 
-
 	public function cekStok($id)
 	{
 		$this->db->join('satuan s', 'b.satuan_id=s.id_satuan');
